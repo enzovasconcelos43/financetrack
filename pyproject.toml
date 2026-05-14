@@ -1,0 +1,16 @@
+[tool.ruff]
+# Versão mínima do Python compatível
+target-version = "py311"
+
+# Comprimento máximo de linha
+line-length = 100
+
+[tool.ruff.lint]
+# Regras ativadas:
+# E = erros de estilo (PEP8)
+# F = erros lógicos (Pyflakes)
+# I = ordenação de imports
+select = ["E", "F", "I"]
+
+# Ignorar arquivos de migração ou gerados automaticamente
+exclude = [".git", "__pycache__", ".venv"]
