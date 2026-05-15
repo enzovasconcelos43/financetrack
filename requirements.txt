@@ -1,0 +1,11 @@
+# ──────────────────────────────────────────────
+# Dependências de Produção
+# ──────────────────────────────────────────────
+requests==2.32.3        # Requisições HTTP para a AwesomeAPI
+
+# ──────────────────────────────────────────────
+# Dependências de Desenvolvimento / Qualidade
+# ──────────────────────────────────────────────
+pytest==8.3.5           # Framework de testes
+pytest-cov==6.1.0       # Plugin de cobertura de código
+ruff==0.9.10            # Linter e formatador ultra-rápido
