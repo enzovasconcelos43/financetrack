@@ -38,9 +38,23 @@ def dados_com_transacoes():
     return {
         "saldo_inicial": 1000.0,
         "transacoes": [
-            {"id": 1, "tipo": "receita", "descricao": "Salário", "valor": 3000.0, "data": "01/06/2025"},
-            {"id": 2, "tipo": "despesa", "descricao": "Aluguel", "valor": 1200.0, "data": "02/06/2025"},
-            {"id": 3, "tipo": "despesa", "descricao": "Mercado", "valor": 450.0, "data": "03/06/2025"},
+            {"id": 1,
+             "tipo": "receita", 
+             "descricao": "Salário", 
+             "valor": 3000.0, 
+             "data": "01/06/2025"},
+            
+            {"id": 2, 
+             "tipo": "despesa", 
+             "descricao": "Aluguel", 
+             "valor": 1200.0, 
+             "data": "02/06/2025"},
+            
+            {"id": 3, 
+             "tipo": "despesa", 
+             "descricao": "Mercado", 
+             "valor": 450.0, 
+             "data": "03/06/2025"},
         ],
     }
 
