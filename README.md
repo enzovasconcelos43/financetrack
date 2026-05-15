@@ -149,25 +149,9 @@ ruff check .
 
 ## ☁️ Deploy
 
-### Opção 1 — Render (recomendado para iniciantes)
+### — Replit
 
-1. Acesse [render.com](https://render.com) e crie uma conta gratuita
-2. Clique em **New → Web Service**
-3. Conecte seu repositório GitHub
-4. Configure:
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `python main.py`
-5. Clique em **Deploy**
-
-> ⚠️ **Nota:** Aplicações CLI interativas funcionam melhor localmente. No Render/Railway, o deploy é útil para demonstrar o projeto e executar tarefas agendadas (cron jobs).
-
-### Opção 2 — Railway
-
-1. Acesse [railway.app](https://railway.app) e conecte com GitHub
-2. Clique em **New Project → Deploy from GitHub repo**
-3. Selecione o repositório `financetrack`
-4. O Railway detecta automaticamente o Python e instala o `requirements.txt`
-
+https://replit.com/@enzovasconcelos/financetrack
 ---
 
 ## 📁 Estrutura do Projeto
