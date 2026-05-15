@@ -212,8 +212,5 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
-## 👤 Autor
 
-Feito com ❤️ durante o Bootcamp de Ciência da Computação.
-
-> Substitua `SEU_USUARIO` nos badges e links pelo seu usuário real do GitHub.
+  
