@@ -4,7 +4,6 @@ Execução: pytest test_main.py -v
 """
 
 import json
-from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -19,7 +18,6 @@ from main import (
     converter_valor,
     salvar_dados,
 )
-
 
 # ──────────────────────────────────────────────
 # FIXTURES (dados reutilizáveis entre os testes)
