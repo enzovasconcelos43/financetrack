@@ -81,7 +81,7 @@
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/SEU_USUARIO/financetrack.git
+git clone https://github.com/enzovasconcelos43/financetrack.git
 
 # 2. Acesse a pasta do projeto
 cd financetrack
