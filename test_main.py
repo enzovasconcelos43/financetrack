@@ -3,7 +3,6 @@ Testes Unitários e de Integração — FinanceTrack CLI
 Execução: pytest test_main.py -v
 """
 
-import json
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -57,15 +56,6 @@ def dados_com_transacoes():
     }
 
 
-@pytest.fixture
-def arquivo_temporario(tmp_path, monkeypatch):
-    """
-    Redireciona DATA_FILE para um diretório temporário durante os testes,
-    evitando que os testes escrevam no projeto real.
-    """
-    arquivo = tmp_path / "financas_teste.json"
-    monkeypatch.setattr("main.DATA_FILE", arquivo)
-    return arquivo
 
 
 # ──────────────────────────────────────────────
@@ -185,29 +175,42 @@ class TestConverterValor:
 
 
 class TestPersistencia:
-    def test_carregar_dados_arquivo_inexistente(self, arquivo_temporario):
-        """Se não houver arquivo, retorna estrutura padrão."""
+    @patch("main.db.buscar_transacoes")
+    def test_carregar_dados_banco_vazio(self, mock_buscar):
+        """Se o banco retornar vazio, a estrutura padrão deve ser retornada."""
+        mock_buscar.return_value = []
         resultado = carregar_dados()
         assert resultado == {"transacoes": [], "saldo_inicial": 0.0}
 
-    def test_salvar_e_carregar_dados(self, arquivo_temporario):
-        """Deve salvar e recuperar os dados corretamente."""
-        dados_para_salvar = {
-            "saldo_inicial": 250.0,
-            "transacoes": [{"id": 1, "tipo": "receita", "valor": 100.0}],
+    @patch("main.db.inserir_transacao")
+    def test_salvar_dados_chama_banco_corretamente(self, mock_inserir):
+        """O banco deve ser chamado com tipo, descrição e valor corretos."""
+        dados = {
+            "saldo_inicial": 0.0,
+            "transacoes": [
+                {"id": 1, "tipo": "receita", "valor": 100.0,
+                 "descricao": "Freelance", "data": "01/06/2025"}
+            ],
         }
-        salvar_dados(dados_para_salvar)
-        dados_recuperados = carregar_dados()
-        assert dados_recuperados["saldo_inicial"] == 250.0
-        assert len(dados_recuperados["transacoes"]) == 1
-
-    def test_dados_salvos_sao_json_valido(self, arquivo_temporario):
-        """O arquivo salvo deve ser JSON válido e legível."""
-        dados = {"saldo_inicial": 50.0, "transacoes": []}
         salvar_dados(dados)
-        conteudo = arquivo_temporario.read_text(encoding="utf-8")
-        parsed = json.loads(conteudo)
-        assert parsed["saldo_inicial"] == 50.0
+        mock_inserir.assert_called_once_with("receita", "Freelance", 100.0)
+
+    @patch("main.db.buscar_transacoes")
+    def test_carregar_dados_formata_corretamente(self, mock_buscar):
+        """Os dados do banco devem ser convertidos para o formato esperado."""
+        mock_buscar.return_value = [
+            {
+                "id": 1,
+                "tipo": "despesa",
+                "valor": 50.0,
+                "descricao": "Mercado",
+                "created_at": "2025-06-01T10:00:00",
+            }
+        ]
+        resultado = carregar_dados()
+        assert len(resultado["transacoes"]) == 1
+        assert resultado["transacoes"][0]["tipo"] == "despesa"
+        assert resultado["transacoes"][0]["valor"] == 50.0
 
 
 # ──────────────────────────────────────────────

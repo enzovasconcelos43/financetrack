@@ -12,6 +12,8 @@ from pathlib import Path
 
 import requests
 
+import db
+
 # ──────────────────────────────────────────────
 # CONFIGURAÇÕES GLOBAIS
 # ──────────────────────────────────────────────
@@ -71,18 +73,25 @@ def buscar_cotacao(par_moeda: str) -> dict | None:
 
 
 def carregar_dados() -> dict:
-    """Carrega as finanças salvas do arquivo JSON local."""
-    if DATA_FILE.exists():
-        with open(DATA_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"transacoes": [], "saldo_inicial": 0.0}
-
+    """Carrega as transações salvas no banco de dados Supabase."""
+    transacoes_db = db.buscar_transacoes()
+    transacoes = []
+    for t in transacoes_db:
+        transacoes.append({
+            "id": t["id"],
+            "tipo": t["tipo"],
+            "descricao": t["descricao"],
+            "valor": float(t["valor"]),
+            "data": t.get("created_at", "")[:16].replace("T", " "),
+        })
+    return {"transacoes": transacoes, "saldo_inicial": 0.0}
 
 def salvar_dados(dados: dict) -> None:
-    """Salva as finanças no arquivo JSON local."""
-    with open(DATA_FILE, "w", encoding="utf-8") as f:
-        json.dump(dados, f, ensure_ascii=False, indent=2)
-
+    """Grava a transação mais recente no banco de dados Supabase."""
+    if not dados["transacoes"]:
+        return
+    ultima = dados["transacoes"][-1]
+    db.inserir_transacao(ultima["tipo"], ultima["descricao"], ultima["valor"])
 
 # ──────────────────────────────────────────────
 # FUNÇÕES DE LÓGICA FINANCEIRA
@@ -271,7 +280,6 @@ def menu_financas(dados: dict) -> dict:
         try:
             saldo_novo = float(input("  Saldo inicial (R$): ").replace(",", "."))
             dados["saldo_inicial"] = saldo_novo
-            salvar_dados(dados)
             print(f"  ✅ Saldo inicial definido como R$ {saldo_novo:.2f}")
         except ValueError:
             print("  ⚠️  Valor inválido.")
