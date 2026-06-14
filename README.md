@@ -30,7 +30,7 @@
 | 📊 **Cotações** | Dólar, Euro, Bitcoin, Libra, Peso, Iene em tempo real |
 | 🔄 **Conversão** | Converta valores de BRL para qualquer moeda |
 | 💼 **Finanças** | Registre receitas e despesas com extrato completo |
-| 💾 **Persistência** | Dados salvos localmente em `financas.json` |
+| 💾 **Persistência** | Dados salvos em nuvem via Supabase (PostgreSQL) |
 | 🤖 **CI/CD** | Pipeline automático de lint e testes no GitHub Actions |
 
 ---
@@ -198,3 +198,24 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 
   
+## Integrantes
+
+Nome: Enzo Cavalcante Bernardes Vasconcelos
+Ra: 22507464
+
+Nome: João Portela Galindo Romão
+Ra: 22505915
+
+Nome: Eduardo Borges Lemos
+Ra: 22504536
+
+Nome: Mateus Yoshihiro Matos
+Ra: 22501888
+
+---
+
+## Links
+
+- **Repositório:** https://github.com/enzovasconcelos43/financetrack
+- **Deploy:** https://replit.com/@enzovasconcelos/financetrack
+- **Banco de Dados:** Supabase (PostgreSQL)
