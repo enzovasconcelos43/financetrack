@@ -32,3 +32,6 @@ coverage.xml
 # Sistema operacional
 .DS_Store
 Thumbs.db
+
+# Variáveis de ambiente (chaves secretas)
+.env
