@@ -254,6 +254,19 @@ def menu_financas(dados: dict) -> dict:
 
     elif escolha == "3":
         print("\n  📋  EXTRATO")
+    print("\n Filtrar por? [1] Todos  [2] Receitas  [3] Despesas")
+    filtro = input(" Escolha: ").strip()
+    if filtro == "2":
+        transacoes_filtradas = db.buscar_transacoes_por_tipo("receita")
+    elif filtro == "3":
+        transacoes_filtradas = db.buscar_transacoes_por_tipo("despesa")
+    else:
+        transacoes_filtradas = dados["transacoes"]
+    print("\n 📋 EXTRATO")
+        transacoes_filtradas = db.buscar_transacoes_por_tipo("despesa")
+    else:
+        transacoes_filtradas = dados["transacoes"]
+    print("\n 📋 EXTRATO")
         print("  " + "─" * 46)
         if not dados["transacoes"]:
             print("  Nenhuma transação registrada.")
