@@ -272,3 +272,7 @@ class TestBuscarCotacao:
         buscar_cotacao("EUR-BRL")
         url_esperada = f"{AWESOMEAPI_BASE_URL}/last/EUR-BRL"
         mock_get.assert_called_once_with(url_esperada, timeout=10)
+
+def test_buscar_transacoes():
+    resultado = db.buscar_transacoes()
+    assert isinstance(resultado, list)
