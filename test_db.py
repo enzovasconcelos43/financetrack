@@ -1,5 +1,6 @@
 
 from unittest.mock import MagicMock, patch
+
 import db
 class TestDb:
     @patch('db.create_client')
@@ -11,7 +12,8 @@ class TestDb:
     def test_buscar_transacoes_retorna_lista(self, mock_client):
         mock_exec = MagicMock()
         mock_exec.execute.return_value.data = [{'id': 1, 'tipo': 'receita'}]
-        mock_client.return_value.table.return_value.select.return_value.order.return_value = mock_exec
+        mock_client.return_value.table.return_value
+        .select.return_value.order.return_value = mock_exec
         resultado = db.buscar_transacoes()
         assert isinstance(resultado, list)
 
