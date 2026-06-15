@@ -332,3 +332,9 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+from typing import List
+
+def buscar_transacoes() -> List:  # Explicitly annotate the return type
+    resultado = db.buscar_transacoes()
+    return resultado
