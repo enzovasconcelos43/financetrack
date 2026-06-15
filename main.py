@@ -262,19 +262,28 @@ def menu_financas(dados: dict) -> dict:
             print("  ⚠️  Valor inválido.")
 
     elif escolha == "3":
-        print("\n  📋  EXTRATO")
-        print("  " + "─" * 46)
-        if not dados["transacoes"]:
-            print("  Nenhuma transação registrada.")
-        for t in dados["transacoes"]:
+        print("\n Filtrar por? [1] Todos  [2] Receitas  [3] Despesas")
+        filtro = input(" Escolha: ").strip()
+        
+        if filtro == "2":
+            transacoes_filtradas = db.buscar_transacoes_por_tipo("receita")
+        elif filtro == "3":
+            transacoes_filtradas = db.buscar_transacoes_por_tipo("despesa")
+        else:
+            transacoes_filtradas = dados["transacoes"]
+
+        print("\n 📋 EXTRATO")
+        print(" " + "-" * 46)
+        if not transacoes_filtradas:
+            print(" Nenhuma transação registrada.")
+        for t in transacoes_filtradas:
             simbolo = "+" if t["tipo"] == "receita" else "-"
             cor = "💚" if t["tipo"] == "receita" else "🔴"
             print(
-                f"  {cor} #{t['id']:03d} | {t['data']} | "
-                f"{simbolo}R$ {t['valor']:>10.2f} | {t['descricao']}"
+                f" {cor} #{t['id']:03d} | {t['data']} | "
+                f"({simbolo})R$ {t['valor']:>10.2f} | {t['descricao']}"
             )
-        print("  " + "─" * 46)
-        print(f"  {'SALDO ATUAL':>30}: R$ {saldo:.2f}")
+        print(" " + "-" * 46)
 
     elif escolha == "4":
         try:

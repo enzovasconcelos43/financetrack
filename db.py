@@ -37,3 +37,15 @@ def inserir_transacao(tipo: str, descricao: str, valor: float) -> dict:
         .execute()
     )
     return response.data[0] if response.data else {}
+    
+def buscar_transacoes_por_tipo(tipo: str) -> list:
+    """Busca transações filtrando por tipo (receita ou despesa)."""
+    client = get_client()
+    response = (
+        client.table("transacoes")
+        .select("*")
+        .eq("tipo", tipo)
+        .order("created_at")
+        .execute()
+    )
+    return response.data
